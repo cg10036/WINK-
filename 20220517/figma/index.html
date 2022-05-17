@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./style.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="main-box">
+        <div class="top-box">
+            <div class="info-box">
+                <div class="logo-box">
+                    <img class="logo" src="./imgs/logo.png" />
+                </div>
+                <div class="unnamed-box">
+                    <div class="name-box">Instagram</div>
+                    <div class="category-box">사진 및 비디오</div>
+                    <div class="review-box">
+                        <div class="star-box">
+                            <img class="star" src="./imgs/star.png" />
+                            <img class="star" src="./imgs/star.png" />
+                            <img class="star" src="./imgs/star.png" />
+                            <img class="star" src="./imgs/star.png" />
+                            <img class="star" src="./imgs/star.png" />
+                        </div>
+                        <span>125만</span>
+                    </div>
+                </div>
+            </div>
+            <div class="download-box" onclick="download()">
+                <span>업데이트</span>
+            </div>
+            <div class="downloading-box hidden">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div class="img-box">
+            <img src="./imgs/img1.png" />
+            <img src="./imgs/img2.png" />
+            <img src="./imgs/img3.png" />
+        </div>
+    </div>
+    <script>
+        let star = 5;
+        let isDownloaded = false;
+        function download() {
+            if (isDownloaded) return;
+            isDownloaded = true;
+            document.querySelector(".download-box").classList.add("hidden");
+            document.querySelector(".downloading-box").classList.remove("hidden");
+            setTimeout(() => {
+                document.querySelector(".download-box > span").innerHTML = "열기";
+                document.querySelector(".downloading-box").classList.add("hidden");
+                document.querySelector(".download-box").classList.remove("hidden");
+            }, 2000);
+        }
+        function setStar(n) {
+            let starEls = document.getElementsByClassName("star");
+            for (let i = 0; i < Math.min(starEls.length, n); i++) {
+                starEls[i].classList.remove("transparent");
+            }
+            for (let i = n; i < starEls.length; i++) {
+                starEls[i].classList.add("transparent");
+            }
+        }
+        window.onload = () => {
+            let starEls = document.getElementsByClassName("star");
+            for (let i = 0; i < starEls.length; i++) {
+                starEls[i].addEventListener("mouseenter", () => {
+                    setStar(i + 1);
+                })
+                starEls[i].addEventListener("click", () => {
+                    star = i + 1;
+                })
+            }
+            document.querySelector(".star-box").addEventListener("mouseleave", () => {
+                setStar(star);
+            })
+        }
+    </script>
+</body>
+
+</html>
